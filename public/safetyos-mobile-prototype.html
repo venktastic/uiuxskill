@@ -458,23 +458,23 @@ body{font-family:'Google Sans Text','Roboto','Inter',sans-serif;background:#1113
 /* ── Home: Icon Grid (Version B) ── */
 .icon-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:8px;margin-bottom:20px;
+  gap:10px;margin-bottom:20px;
 }
 .icon-card{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:16px 8px;background:var(--md-surface-container-lowest);
-  border:1px solid var(--md-outline-variant);border-radius:var(--md-shape-md);
-  cursor:pointer;transition:border-color .15s;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:20px 8px 16px;background:var(--md-surface-container-lowest);
+  border:1px solid var(--md-outline-variant);border-radius:var(--md-shape-lg);
+  cursor:pointer;transition:all .2s;
 }
-.icon-card:hover{border-color:var(--md-primary)}
+.icon-card:hover{border-color:var(--md-primary);background:var(--md-primary-container)}
 .icon-card .ic-icon{
-  width:40px;height:40px;border-radius:var(--md-shape-md);
+  width:48px;height:48px;
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;color:#fff;
 }
+.icon-card .ic-icon svg{width:36px;height:36px}
 .icon-card .ic-label{
   font-size:12px;font-weight:500;color:var(--md-on-surface);
-  text-align:center;line-height:16px;letter-spacing:0.5px;
+  text-align:center;line-height:16px;letter-spacing:0.4px;
 }
 
 /* ── Crystal Hub ── */
@@ -860,8 +860,8 @@ a{color:var(--md-primary);text-decoration:none}
   <div class="ctrl-card">
     <h3>Home Version</h3>
     <div class="ctrl-row">
-      <button class="ctrl-btn active" onclick="setHomeVersion('photos')">Photos</button>
-      <button class="ctrl-btn" onclick="setHomeVersion('icons')">Icons</button>
+      <button class="ctrl-btn" onclick="setHomeVersion('photos')">Photos</button>
+      <button class="ctrl-btn active" onclick="setHomeVersion('icons')">Icons</button>
     </div>
   </div>
 
@@ -1206,7 +1206,7 @@ a{color:var(--md-primary);text-decoration:none}
         <div class="home-state active" id="home-default">
 
           <!-- VERSION A: Photo Grid -->
-          <div id="home-photos">
+          <div id="home-photos" style="display:none">
             <div class="section-title">nAI Flow</div>
             <div class="flow-grid">
               <div class="flow-card">
@@ -1252,27 +1252,27 @@ a{color:var(--md-primary);text-decoration:none}
           </div>
 
           <!-- VERSION B: Icon Grid -->
-          <div id="home-icons" style="display:none">
+          <div id="home-icons">
             <div class="section-title">nAI Flow</div>
             <div class="icon-grid">
               <div class="icon-card">
-                <div class="ic-icon" style="background:var(--md-primary)">&#128065;</div>
+                <div class="ic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.5" fill="#059669" stroke="none"/></svg></div>
                 <div class="ic-label">Observation</div>
               </div>
               <div class="icon-card">
-                <div class="ic-icon" style="background:#059669">&#128694;</div>
+                <div class="ic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--md-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="2"/><path d="M12 8v4"/><path d="M9 20l3-8 3 8"/><path d="M7 16h10"/></svg></div>
                 <div class="ic-label">Site Walkthrough</div>
               </div>
               <div class="icon-card">
-                <div class="ic-icon" style="background:var(--md-error)">&#9888;</div>
+                <div class="ic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 14H4z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.8" fill="#dc2626" stroke="none"/></svg></div>
                 <div class="ic-label">Incident</div>
               </div>
               <div class="icon-card">
-                <div class="ic-icon" style="background:var(--md-success)">&#10003;</div>
+                <div class="ic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 12 11 14 15 10"/></svg></div>
                 <div class="ic-label">Inspections</div>
               </div>
               <div class="icon-card">
-                <div class="ic-icon" style="background:var(--md-warning)">&#128196;</div>
+                <div class="ic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--md-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/></svg></div>
                 <div class="ic-label">Permit to Work</div>
               </div>
             </div>
@@ -1789,7 +1789,7 @@ var SCREEN_MAP = {
 var SCREEN_IDS = Object.keys(SCREEN_MAP);
 var splashTimer = null;
 var resendInterval = null;
-var currentHomeVersion = 'photos';
+var currentHomeVersion = 'icons';
 var currentTourStep = 0;
 
 window.showScreen = function(id){
