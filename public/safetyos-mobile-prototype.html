@@ -526,16 +526,40 @@ body{font-family:'Google Sans Text','Roboto','Inter',sans-serif;background:#1113
   color:var(--md-on-surface);
 }
 
-/* Home nav uses brand accent on active indicator */
+/* Client Brand — Home Header */
+.home-screen .home-header{
+  background:var(--client-brand);
+  box-shadow:var(--md-elevation-2);
+}
+.home-screen .home-header .hh-proj-dropdown{color:var(--client-brand-text)}
+.home-screen .home-header .hh-proj-dropdown .hh-chevron{color:rgba(255,255,255,0.6)}
+.home-screen .home-header .hh-info p{color:rgba(255,255,255,0.7)}
+.home-screen .home-header .hh-avatar{background:rgba(255,255,255,0.2);color:var(--client-brand-text)}
+.home-screen .hh-hamburger{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.2);color:var(--client-brand-text)}
+
+/* Client Brand — Home Bottom Nav */
+.home-screen .bottom-nav{
+  background:var(--client-brand);
+  box-shadow:none;
+}
+.home-screen .nav-item .nav-icon{color:rgba(255,255,255,0.5)}
+.home-screen .nav-item .nav-label{color:rgba(255,255,255,0.5)}
 .home-screen .nav-item.active .nav-indicator{
-  background:color-mix(in srgb, var(--client-brand) 18%, transparent);
+  background:rgba(255,255,255,0.2);
 }
-.home-screen .nav-item.active .nav-icon{
-  color:var(--client-brand);
+.home-screen .nav-item.active .nav-icon{color:#fff}
+.home-screen .nav-item.active .nav-label{color:#fff}
+
+/* Client Brand — All screens active indicator tint */
+.nav-item.active .nav-indicator{
+  background:color-mix(in srgb, var(--client-brand) 16%, var(--md-surface-container));
 }
-.home-screen .nav-item.active .nav-label{
-  color:var(--md-on-surface);
-}
+.nav-item.active .nav-icon{color:var(--client-brand)}
+
+/* Client Brand — Dashboard & Tasks active tab */
+.dash-tab.active{color:var(--client-brand);border-bottom-color:var(--client-brand)}
+.dash-tab.active .tab-count{background:var(--client-brand);color:#fff}
+.tasks-tab.active{color:var(--client-brand);border-bottom-color:var(--client-brand)}
 
 /* ── Tasks Screen ── */
 .tasks-screen{padding:0;background:var(--md-surface)}
@@ -862,12 +886,16 @@ a{color:var(--md-primary);text-decoration:none}
   <div class="ctrl-card">
     <h3>Client Color</h3>
     <div class="ctrl-row">
-      <button class="ctrl-btn active" onclick="setClientColor('#1a56db')" style="background:#1a56db;color:#fff;border-color:#1a56db">Blue</button>
-      <button class="ctrl-btn" onclick="setClientColor('#0f766e')" style="background:#0f766e;color:#fff;border-color:#0f766e">Teal</button>
+      <button class="ctrl-btn active" id="cc-blue" onclick="setClientColor('#1a56db')" style="background:#1a56db;color:#fff;border-color:#1a56db">Blue</button>
+      <button class="ctrl-btn" id="cc-teal" onclick="setClientColor('#0f766e')" style="background:#0f766e;color:#fff;border-color:#0f766e">Teal</button>
     </div>
     <div class="ctrl-row">
-      <button class="ctrl-btn" onclick="setClientColor('#7c3aed')" style="background:#7c3aed;color:#fff;border-color:#7c3aed">Purple</button>
-      <button class="ctrl-btn" onclick="setClientColor('#1e3a5f')" style="background:#1e3a5f;color:#fff;border-color:#1e3a5f">Navy</button>
+      <button class="ctrl-btn" id="cc-purple" onclick="setClientColor('#7c3aed')" style="background:#7c3aed;color:#fff;border-color:#7c3aed">Purple</button>
+      <button class="ctrl-btn" id="cc-navy" onclick="setClientColor('#1e3a5f')" style="background:#1e3a5f;color:#fff;border-color:#1e3a5f">Navy</button>
+    </div>
+    <div class="ctrl-row" style="margin-top:4px">
+      <input type="color" id="colorPicker" value="#1a56db" oninput="setClientColor(this.value)" style="width:36px;height:32px;border:none;border-radius:6px;cursor:pointer;padding:0;background:none">
+      <span id="colorHex" style="font-size:11px;color:#9ca3af;font-family:monospace;flex:1;text-align:center;line-height:32px">#1a56db</span>
     </div>
   </div>
 </div>
@@ -1933,6 +1961,15 @@ window.setDashTab = function(el){
 window.setClientColor = function(color){
   var ps = document.getElementById('phoneScreen');
   ps.style.setProperty('--client-brand', color);
+  var picker = document.getElementById('colorPicker');
+  if(picker) picker.value = color;
+  var hex = document.getElementById('colorHex');
+  if(hex) hex.textContent = color;
+  var presets = ['cc-blue','cc-teal','cc-purple','cc-navy'];
+  presets.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.classList.remove('active');
+  });
 };
 
 var tourSteps = [
